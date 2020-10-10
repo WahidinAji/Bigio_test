@@ -16,3 +16,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::namespace('User')->group(function () {
+    Route::get('login', 'UserAuthController@index')->name('login');
+    Route::post('user-login', 'UserAuthController@postLogin')->name('post.login');
+    Route::get('register', 'UserAuthController@register')->name('register');
+    Route::post('user-register', 'UserAuthController@postRegister')->name('post.register');
+    Route::get('dashboard', 'UserAuthController@dashboard')->name('dashboard');
+    Route::get('logout', 'UserAuthController@logout')->name('logout');
+});
+Route::namespace('surveyor')->group(function () {
+    Route::get('surveyor-login', 'SurveyorAuthController@index')->name('surveyor-login');
+    Route::post('surveyor-login', 'SurveyorAuthController@postLogin')->name('surveyor.login');
+    Route::get('surveyor-register', 'SurveyorAuthController@register')->name('surveyor-register');
+    Route::post('surveyor-register', 'SurveyorAuthController@postRegister')->name('surveyor.register');
+    Route::get('surveyor-dashboard', 'SurveyorAuthController@dashboard')->name('surveyor.dashboard');
+    Route::get('surveyor-logout', 'SurveyorAuthController@logout')->name('surveyor.logout');
+});
+Route::namespace('Admin')->group(function () {
+    Route::get('super-login', 'AdminAuthController@login')->name('super-login');
+    Route::post('super-login', 'AdminAuthController@postLogin')->name('super.postlogin');
+    Route::get('super-dashboard', 'AdminAuthController@dashboard')->name('super.dashboard');
+    Route::get('createadmin', 'AdminAuthController@createAdmin');
+    Route::get('super-logout', 'AdminAuthController@logout')->name('super.logout');
+});
