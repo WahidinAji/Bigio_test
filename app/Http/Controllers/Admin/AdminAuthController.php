@@ -7,6 +7,7 @@ use App\Model\Admin;
 use Illuminate\Http\Request;
 use Validator, Redirect, Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
@@ -41,7 +42,11 @@ class AdminAuthController extends Controller
     public function dashboard()
     {
         if (Auth::guard('admin')->check()) {
-            return view('admin.dashboard'); //view dashboard
+            $komoditas = DB::table('komoditas')
+                ->join('surveyors', 'surveyors.id', '=', 'komoditas.id_surveyor')
+                ->select('komoditas.*', 'surveyors.name')
+                ->get();
+            return view('admin.dashboard', \compact('komoditas')); //view dashboard
         } else {
             // return view('admin.atuh.login'); //view dashboard
             return Redirect::to("super-login")->withSuccess('Opps! You do not have access'); //routing login

@@ -24,14 +24,23 @@ Route::namespace('User')->group(function () {
     Route::get('dashboard', 'UserAuthController@dashboard')->name('dashboard');
     Route::get('logout', 'UserAuthController@logout')->name('logout');
 });
-Route::namespace('surveyor')->group(function () {
+Route::namespace('Surveyor')->group(function () {
     Route::get('surveyor-login', 'SurveyorAuthController@index')->name('surveyor-login');
     Route::post('surveyor-login', 'SurveyorAuthController@postLogin')->name('surveyor.login');
     Route::get('surveyor-register', 'SurveyorAuthController@register')->name('surveyor-register');
     Route::post('surveyor-register', 'SurveyorAuthController@postRegister')->name('surveyor.register');
     Route::get('surveyor-dashboard', 'SurveyorAuthController@dashboard')->name('surveyor.dashboard');
     Route::get('surveyor-logout', 'SurveyorAuthController@logout')->name('surveyor.logout');
+
+    //komoditas
+    // Route::get('surveyor/laporan', 'KomoditasController@index')->name('komoditas.index');
+    Route::get('surveyor/laporan/create-komoditas', 'KomoditasController@create')->name('komoditas.create');
+    Route::post('surveyor/laporan', 'KomoditasController@store')->name('komoditas.store');
+    Route::get('surveyor/laporan/{komoditas}/edit', 'KomoditasController@edit')->name('komoditas.edit');
+    Route::put('surveyor/laporan/{komoditas}', 'KomoditasController@update')->name('komoditas.update');
+    Route::delete('surveyor/laporan/{komoditas}', 'KomoditasController@destroy')->name('komoditas.destroy');
 });
+
 Route::namespace('Admin')->group(function () {
     Route::get('super-login', 'AdminAuthController@login')->name('super-login');
     Route::post('super-login', 'AdminAuthController@postLogin')->name('super.postlogin');

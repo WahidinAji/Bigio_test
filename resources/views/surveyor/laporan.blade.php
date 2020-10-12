@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Dashboard Admin')
+@section('title','Dashboard Surveyor')
 @section('header')
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -9,15 +9,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            {{-- <li class="nav-item {{ Request::url() == url('surveyor-dashboard') ? 'active' : '' }}">
+                <a href="nav-link {{URL::route('surveyor.dashboard')}}"><i class="menu-icon fa fa-2x fa-gamepad"></i>Dashboard</a>
+            </li> --}}
             <li class="nav-item {{ Request::url() == url('surveyor-dashboard') ? 'active' : '' }}">
               <a class="nav-link" aria-current="page" href="{{URL::route('surveyor.dashboard')}}">Dashboard</a>
+            </li>
+            <li class="nav-item {{ Request::url() == url('surveyor/laporan') ? 'active' : '' }}">
+              <a class="nav-link" aria-current="page" href="{{URL::route('komoditas.index')}}">Laporan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ Request::segment(1) ==='dashboard' ? 'active' :null }}" href="{{ URL::route('dashboard') }}">Link</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ URL::route('logout') }}"></i> <span>Logout</span></a>
             </li>
-            <li class="nav-item">
-                <p class="nav-link">Status : {{ Auth::guard('admin')->user()->name }}</p>
-            </li>
+            {{-- <li class="nav-item">
+              <a href="{{URL::route('logout')}}"><i class="lnr lnr-exit" class="more"></i> <span>Logout</span></a>
+            </li> --}}
+
           </ul>
           <form class="d-flex">
             <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
@@ -36,11 +46,9 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col" style="width: 10%;">Nama</th>
-            <th scope="col" style="width: 10%;">Jenis</th>
-            <th scope="col" style="width: 15%;">Harga</th>
-            <th scope="col" style="width: 10%;">Gambar</th>
-            <th scope="col">status</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Jenis</th>
+            <th scope="col">Harga</th>
             <th scope="col">Aksi</th>
         </tr>
     </thead>
@@ -50,24 +58,16 @@
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $item->name }}</td>
             <td>{{ $item->jenis }}</td>
-            <td>Rp. {{ $item->harga }} </td>
-            <td style="width: 10%;"  >
-                <img src="{{ asset('/img/komoditas/'.$item->img) }}" alt="" width="100%">
-            </td>
-            @if ($item->status == 1)
-            <td>Aktif</td>
-            @else
-            <td>Tidak Aktif</td>
-            @endif
+            <td>Rp. {{ $item->harga }},- </td>
             <td>
                 <a href="#" class="badge">
                     <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Detail"></i>
                 </a>
-                <a href="{{ URL::route('komoditas.edit',$item->id) }}" class="badge">
+                <a href="#" class="badge">
                     <i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></i>
                 </a>
-                <form action="{{ URL::route('komoditas.destroy',$item->id) }}" method="POST" class="badge">
-                    @method('delete')
+                <form action="#" method="POST" class="badge">
+                    {{-- @method('delete') --}}
                     @csrf
                     <button class="badge badge-outline-danger">
                       <i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i>

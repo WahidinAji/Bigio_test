@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Surveyor;
 
 use App\Http\Controllers\Controller;
+use App\Model\Komoditas;
 use App\Model\Surveyor;
 use Illuminate\Http\Request;
 use Validator, Redirect, Response;
@@ -64,8 +65,8 @@ class SurveyorAuthController extends Controller
     public function dashboard()
     {
         if (Auth::guard('surveyor')->check()) {
-            // $game = Game::all();
-            return view('surveyor.dashboard'); //view dashboard
+            $komoditas = Komoditas::select('id', 'name', 'jenis', 'harga', 'img')->get();
+            return view('surveyor.dashboard', \compact('komoditas')); //view dashboard
         } else {
             return Redirect('login')->with('msg', 'Anda harus login'); //routing login
         }

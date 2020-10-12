@@ -30,6 +30,7 @@
       </div>
     </nav>
   </header>
+@section('text-header','Data Komoditas')
 @section('card-body')
 <p>Pelanggan</p>
 @endsection
