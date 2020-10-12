@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Model\Komoditas;
 use Illuminate\Http\Request;
 use Validator, Redirect, Response;
 use App\User;
@@ -50,14 +51,6 @@ class UserAuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
-
-        // $player = Auth::user();
-        // $ava_name = $player->id . '_avatar' . time() . '.' . \request()->ava_url->getClientOriginalExtension();
-        // $ava_url = \request()->file('ava_url');
-        // $ava_name = $ava_url->getClientOriginalName() . '_avatar' . \time();
-        // $ava_folder = \storage_path('ava_player');
-        // $ava_url->move($ava_folder, $ava_name);
-
         $data = $request->all();
         $check = $this->create($data);
         return Redirect::to("dashboard")->withSuccess('Great! U have successfully loggedin'); //routing dashboard
@@ -65,8 +58,8 @@ class UserAuthController extends Controller
     public function dashboard()
     {
         if (Auth::check()) {
-            // $game = Game::all();
-            return view('user.dashboard'); //view dashboard
+            $komoditas = Komoditas::all();
+            return view('user.dashboard', \compact('komoditas')); //view dashboard
         } else {
             return Redirect('login')->with('msg', 'Anda harus login'); //routing login
         }

@@ -34,17 +34,22 @@ Route::namespace('Surveyor')->group(function () {
 
     //komoditas
     // Route::get('surveyor/laporan', 'KomoditasController@index')->name('komoditas.index');
-    Route::get('surveyor/laporan/create-komoditas', 'KomoditasController@create')->name('komoditas.create');
-    Route::post('surveyor/laporan', 'KomoditasController@store')->name('komoditas.store');
-    Route::get('surveyor/laporan/{komoditas}/edit', 'KomoditasController@edit')->name('komoditas.edit');
-    Route::put('surveyor/laporan/{komoditas}', 'KomoditasController@update')->name('komoditas.update');
-    Route::delete('surveyor/laporan/{komoditas}', 'KomoditasController@destroy')->name('komoditas.destroy');
+    Route::get('surveyor-dashboard/create-komoditas', 'KomoditasController@create')->name('komoditas.create');
+    Route::post('surveyor-dashboard', 'KomoditasController@store')->name('komoditas.store');
+    Route::get('surveyor-dashboard/{komoditas}/edit-komoditas', 'KomoditasController@edit')->name('komoditas.edit');
+    Route::put('surveyor-dashboard/{komoditas}', 'KomoditasController@update')->name('komoditas.update');
+    Route::delete('surveyor-dashboard/{komoditas}', 'KomoditasController@destroy')->name('komoditas.destroy');
 });
 
 Route::namespace('Admin')->group(function () {
     Route::get('super-login', 'AdminAuthController@login')->name('super-login');
     Route::post('super-login', 'AdminAuthController@postLogin')->name('super.postlogin');
     Route::get('super-dashboard', 'AdminAuthController@dashboard')->name('super.dashboard');
-    Route::get('createadmin', 'AdminAuthController@createAdmin');
+    // Route::get('createadmin', 'AdminAuthController@createAdmin');
     Route::get('super-logout', 'AdminAuthController@logout')->name('super.logout');
+
+    //Komoditas
+    Route::get('super-dashboard/{komoditas}/edit', 'KomAdminController@edit')->name('admin.edit');
+    Route::put('super-dashboard/{komoditas}', 'KomAdminController@update')->name('admin.update');
+    Route::delete('super-dashboard/{komoditas}', 'KomAdminController@destroy')->name('admin.destroy');
 });

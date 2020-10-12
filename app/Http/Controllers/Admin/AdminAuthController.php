@@ -31,14 +31,6 @@ class AdminAuthController extends Controller
             return Redirect::to("login"); //routing login jika user tidak ada
         }
     }
-    public function createAdmin()
-    {
-        // return Admin::create([
-        //     'name' => 'svperadmin',
-        //     'email' => 'svper@mail.com',
-        //     'password' => Hash::make('qwerty1234'),
-        // ]);
-    }
     public function dashboard()
     {
         if (Auth::guard('admin')->check()) {
